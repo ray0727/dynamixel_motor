@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<launch>
+    <arg name="veh" default="husky2" />
+    <arg name="port" default="/dev/input/js0" />
+
+    <node ns="$(arg veh)" pkg="joy" type="joy_node" name="joy_node">
+        <param name="port" value="$(arg port)" />
+	<param name="deadzone" value="0.1" />
+	<param name="autorepeat_rate" value="20" />
+    </node>
+    
+    <node ns="$(arg veh)" pkg="dynamixel_tilting_camera" type="joy_mapper_node.py" name="joy_mapper_node"
+          output="screen" clear_params="true" required="true">
+    </node>
+</launch>

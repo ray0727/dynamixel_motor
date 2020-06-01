@@ -1,0 +1,16 @@
+<!-- -*- mode: XML -*- -->
+
+<launch>
+    <arg name="veh" default="husky2" />  
+    <!-- Load controller configuration to parameter server -->
+    <rosparam ns="$(arg veh)" file="$(find dynamixel_anchor)/config/dynamixel_anchor_joint_controllers.yaml" command="load"/>
+    
+    <!-- start specified joint controllers -->
+    <node ns="$(arg veh)" pkg="dynamixel_controllers" type="controller_spawner.py" name="dynamixel_controller_spawner"
+          args="--manager=dxl_manager
+                --port=anchor_port
+                --type=simple
+                anchor_bottom_left
+                anchor_top_left"
+          output="screen"/>
+</launch>
